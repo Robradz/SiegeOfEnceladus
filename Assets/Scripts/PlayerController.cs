@@ -9,7 +9,7 @@ public class PlayerController : MonoBehaviour
     [Header("General")]
     [Tooltip("In ms^-1")][SerializeField] float xSpeed = 12f;
     [Tooltip("In ms^-1")] [SerializeField] float ySpeed = 10f;
-    
+    [SerializeField] GameObject[] guns;
 
     [Header("Screen Limits")]
     [SerializeField] float xMin = -5.0f;
@@ -33,8 +33,37 @@ public class PlayerController : MonoBehaviour
             VerticalMovement();
             HorizontalMovement();
             ShipRotation();
+            ProcessFiring();
         }
         
+    }
+
+    void ProcessFiring()
+    {
+        if (CrossPlatformInputManager.GetButton("Fire"))
+        {
+            ActivateGuns();
+        }
+        else
+        {
+            DeactivateGuns();
+        }
+    }
+
+    private void ActivateGuns()
+    {
+        foreach (GameObject gun in guns)
+        {
+            gun.SetActive(true);
+        }
+    }
+
+    private void DeactivateGuns()
+    {
+        foreach (GameObject gun in guns)
+        {
+            gun.SetActive(false);
+        }
     }
 
     public void Deactivate() // Called by string reference

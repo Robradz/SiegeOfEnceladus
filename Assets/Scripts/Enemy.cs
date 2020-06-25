@@ -9,6 +9,9 @@ public class Enemy : MonoBehaviour
     [SerializeField] GameObject explosionPrefab;
     [SerializeField] Transform parent;
     [SerializeField] int scorePerHit = 12;
+    [SerializeField] int health = 3;
+
+    int frameCount = 0;
 
     ScoreBoard scoreBoard;
 
@@ -23,11 +26,22 @@ public class Enemy : MonoBehaviour
 
     private void OnParticleCollision(GameObject other)
     {
+        if (frameCount != Time.frameCount)
+        {
+            scoreBoard.ScoreHit(scorePerHit);
+            health--;
+            if (health <= 0)
+            {
+                KillEnemy();
+            }
+            frameCount = Time.frameCount;
+        }
+    }
+
+    private void KillEnemy()
+    {
         GameObject fx = Instantiate(explosionPrefab, transform.position, Quaternion.identity);
         fx.transform.parent = parent;
-
-        scoreBoard.ScoreHit(scorePerHit);
-
         Destroy(gameObject);
     }
 }
