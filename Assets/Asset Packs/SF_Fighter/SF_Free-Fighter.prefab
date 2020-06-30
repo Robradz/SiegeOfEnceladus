@@ -112,3 +112,5 @@ MonoBehaviour:
   explosionPrefab: {fileID: 2265486279935146647, guid: e137842bad9a91c44938cec6a32bae0d,
     type: 3}
   parent: {fileID: 5101575112688258052, guid: e12ddeae60e91d74fa085866e9014550, type: 3}
+  scorePerHit: 12
+  health: 5
